@@ -1,10 +1,8 @@
 """LangGraph tools that own the interaction form and its persistence.
 
-Phase 1 (form in graph state):
+(form in graph state):
   * log_interaction  — parse a full natural-language description into the form.
   * edit_interaction — merge corrections into the form without wiping fields.
-
-Phase 2 (CRUD over the Postgres `interactions` table):
   * submit_interaction — save the form as a NEW record, then clear the form.
   * list_interactions  — return all saved records (for the records table + chat).
   * select_interaction — load a saved record (by id) into the form for editing.
@@ -32,7 +30,6 @@ from ..models import Interaction
 from ..schemas import empty_form
 
 VALID_INTERACTION_TYPES = {"meeting", "call", "email", "conference", "other"}
-
 
 # --------------------------------------------------------------------------- helpers
 def _normalize_sentiment(value: Optional[str]) -> Optional[str]:
