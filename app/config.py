@@ -53,9 +53,14 @@ class Settings(BaseSettings):
     # stopping). Override via GROQ_MODEL (e.g. llama-3.3-70b-versatile for a larger model).
     groq_model: str = "openai/gpt-oss-20b"
     database_url: str = ""
+    # Comma-separated list of allowed CORS origins (the Vite dev server + any deployed frontend).
     frontend_origin: str = "http://localhost:5173"
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    @property
+    def cors_origins(self) -> list[str]:
+        return [o.strip() for o in self.frontend_origin.split(",") if o.strip()]
 
 
 @lru_cache

@@ -30,7 +30,9 @@ app = FastAPI(title="AI-First CRM — HCP Interaction API", lifespan=lifespan)
 settings = get_settings()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.frontend_origin],
+    allow_origins=settings.cors_origins,
+    # Allow any Vercel deployment (production + preview URLs) without hard-coding each one.
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
